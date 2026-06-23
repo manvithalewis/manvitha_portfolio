@@ -426,7 +426,14 @@ function LaundryPage({ onBack }: { onBack: () => void }) {
         </FadeUp>
 
         <div className="flex justify-center mt-12">
-          <GlassBtn>
+          <GlassBtn
+                    onClick={() =>
+                      window.open(
+                        "https://www.figma.com/design/tWtK5PzGIh1WYEpuhRAHHV/Laundry-management-system?node-id=0-1&t=pyAOYulAD3AWuKzo-1",
+                        "_blank"
+                      )
+                    }
+                  >
             <span className="flex items-center gap-2"><ExternalLink className="w-5 h-5" /> See full design on Figma</span>
           </GlassBtn>
         </div>
