@@ -182,20 +182,7 @@ const LAUNDRY_SCREENS = [
   { img: "/images/laundry/superadmin.png", label: "Super Admin Module" },
 ];
 
-const BRAND_GALLERY = [
-  "/images/branding/1.png",
-  "/images/branding/2.png",
-  "/images/branding/3.png",
-  "/images/branding/4.png",
-  "/images/branding/5.png",
-  "/images/branding/6.png",
-  "/images/branding/7.png",
-  "/images/branding/8.png",
-  "/images/branding/9.png",
-  "/images/branding/10.png",
-  "/images/branding/11.png",
-  "/images/branding/12.png",
-];
+
 
 // ════════════════════════════════════════════
 //  Page: Branding detail
@@ -228,32 +215,39 @@ function BrandingPage({ onBack }: { onBack: () => void }) {
 
         {/* About the project */}
         <FadeUp className="mb-10">
-          <h2 className="font-poppins text-4xl mb-5">About the project</h2>
-          <p className="text-lg leading-relaxed text-white/80">
-            Sugar & Lace is a boutique home bakery creating elegant handcrafted desserts for life's sweetest celebrations.
-            Every cake, cupcake, and pastry is thoughtfully made with artistry, warmth, and attention to detail.
-          </p>
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+            <p className="text-2xl font-bold mb-2">Project Overview</p>
+            <p className="text-lg leading-relaxed text-white/85">
+            Sugar & Lace is a boutique home bakery creating elegant handcrafted
+            desserts for life's sweetest celebrations. Every cake, cupcake,
+            and pastry is thoughtfully made with artistry, warmth,
+            and attention to detail.
+            </p>
+          </div>
         </FadeUp>
 
         {/* Logo Design */}
         <FadeUp className="mb-10">
-          <h2 className="font-poppins text-4xl mb-5">Logo Design</h2>
-          <p className="text-lg leading-relaxed text-white/80 mb-8">
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+            <p className="text-2xl font-bold mb-2">Logo Design</p>
+            <p className="text-lg leading-relaxed text-white/80 mb-8">
             The Sugar & Lace logo reflects the brand's elegant homemade identity through soft handwritten typography
             and a minimalist whisk illustration. The flowing curves and warm cocoa tones create a cozy yet premium visual experience.
-          </p>
-          <div className="grid grid-cols-2 gap-6">
-            {["/images/branding/logo_dark.png", "/images/branding/logo_light.png", ].map((src, i) => (
-              <motion.div key={i} whileHover={{ scale: 1.03 }} className="rounded-2xl overflow-hidden ">
-                <img src={src} alt={`Logo variant ${i + 1}`} className="w-full object-contain p-6" />
-              </motion.div>
-            ))}
+            </p>
+            <div className="grid grid-cols-2 gap-6">
+              {["/images/branding/logo_dark.png", "/images/branding/logo_light.png", ].map((src, i) => (
+                <motion.div key={i} whileHover={{ scale: 1.03 }} className="rounded-2xl overflow-hidden ">
+                  <img src={src} alt={`Logo variant ${i + 1}`} className="w-full object-contain p-6" />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </FadeUp>
 
         {/* Color Palette */}
 <FadeUp className="mb-10">
-  <h2 className="font-poppins text-4xl mb-5">Color Palette</h2>
+  <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+  <p className="text-2xl font-bold mb-2">Color Palette</p>
 
   <p className="text-lg leading-relaxed text-white/80 mb-8">
     The palette combines soft neutrals and warm dessert-inspired tones — cream and cocoa for refinement,
@@ -281,15 +275,17 @@ function BrandingPage({ onBack }: { onBack: () => void }) {
       </div>
     ))}
   </div>
+  </div>
 </FadeUp>
 
         {/* Typography */}
         <FadeUp className="mb-10">
-          <h2 className="font-poppins text-4xl mb-5"> Typography </h2>
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+          <p className="text-2xl font-bold mb-2">Typography</p>
           <p className="text-lg leading-relaxed text-white/80 mb-6">
             Satisfy brings a soft handwritten feel for headings; Poppins provides clean readability for body text.
           </p>
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
               <p className="text-sm text-white/50 tracking-widest mb-2">HEADING FONT</p>
               <p className="text-3xl" style={{ fontFamily: "'Satisfy', cursive" }}>Satisfy</p>
@@ -301,28 +297,80 @@ function BrandingPage({ onBack }: { onBack: () => void }) {
               <p className="text-xl mt-2 font-poppins">Sugar & Lace</p>
             </div>
           </div>
-        </FadeUp>
-
-        {/* Brand Imagery */}
-        <FadeUp className="mb-10">
-          <h2 className="font-poppins text-4xl mb-3">Brand Imagery & Visual Style</h2>
-          <p className="text-sm text-white/50 mb-8">Images sourced from Pexels, curated to align with the brand's soft, elegant aesthetic.</p>
-          <div className="columns-2 md:columns-3 gap-4 space-y-4">
-            {BRAND_GALLERY.map((src, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.02 }}
-                className="break-inside-avoid rounded-xl overflow-hidden"
-              >
-                <img src={src} alt={`Brand visual ${i + 1}`} className="w-full object-cover" />
-              </motion.div>
-            ))}
           </div>
         </FadeUp>
 
+        {/* Key Screens */}
+<FadeUp className="mb-10">
+  <p className="text-2xl font-bold mb-2">Key Screens</p>
+  <p className="text-lg leading-relaxed text-white/80 mb-6">
+    Core screens designed to showcase the brand experience and customer journey.
+  </p>
+
+  <div className="grid md:grid-cols-3 gap-6">
+
+    {/* Home Screen */}
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="rounded-2xl overflow-hidden border border-white/10 bg-white/5"
+    >
+      <img
+        src="/images/branding/home.png"
+        alt="Home Screen"
+        className="w-full object-cover"
+      />
+      <div className="p-4">
+        <h3 className="font-medium text-lg mb-2">Home Screen</h3>
+        <p className="text-lg leading-relaxed text-white/80 mb-6">
+          Introduces the brand with a clean layout, featured collections, and clear visual hierarchy.
+        </p>
+      </div>
+    </motion.div>
+
+    {/* Categories Screen */}
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="rounded-2xl overflow-hidden border border-white/10 bg-white/5"
+    >
+      <img
+        src="/images/branding/categories.png"
+        alt="Categories Screen"
+        className="w-full object-cover"
+      />
+      <div className="p-4">
+        <h3 className="font-medium text-lg mb-2">Categories Screen</h3>
+        <p className="text-lg leading-relaxed text-white/80 mb-6">
+          Enables users to browse products through organized categories and intuitive navigation.
+        </p>
+      </div>
+    </motion.div>
+
+    {/* Contact Form Screen */}
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="rounded-2xl overflow-hidden border border-white/10 bg-white/5"
+    >
+      <img
+        src="/images/branding/contact form.png"
+        alt="Contact Form Screen"
+        className="w-full object-cover"
+      />
+      <div className="p-4">
+        <h3 className="font-medium text-lg mb-2">Contact Form Screen</h3>
+        <p className="text-lg leading-relaxed text-white/80 mb-6">
+          Provides a simple and accessible way for customers to reach out and engage with the brand.
+        </p>
+      </div>
+    </motion.div>
+
+  </div>
+
+</FadeUp>
+
         {/* Target Audience */}
         <FadeUp className="mb-10">
-          <h2 className="font-poppins text-4xl mb-5">Target Audience</h2>
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+          <p className="text-2xl font-bold mb-2">Target Audience</p>
           <ul className="list-disc pl-6 space-y-3 text-lg text-white/80">
             <li>Young adults seeking aesthetic and customized cakes</li>
             <li>Couples celebrating special occasions like weddings & anniversaries</li>
@@ -330,6 +378,18 @@ function BrandingPage({ onBack }: { onBack: () => void }) {
             <li>Event planners looking for visually appealing dessert solutions</li>
             <li>Corporate clients for celebrations, gifting, and events</li>
           </ul>
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mb-10">
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+            <p className="text-2xl font-bold mb-4">Design Challenges</p>
+            <ul className="list-disc pl-6 space-y-2 text-lg text-white/85">
+              <li>As my first independently executed UI/UX project, the challenge was to understand the needs of a small home bakery business and translate them into a meaningful digital experience.</li>
+              <li>The challenge was balancing aesthetic appeal with usability while ensuring the website remained simple enough for a small business to manage and maintain.</li>
+            
+            </ul>
+          </div>
         </FadeUp>
 
         <div className="flex justify-center">
@@ -401,6 +461,56 @@ function LaundryPage({ onBack }: { onBack: () => void }) {
                 <p className="text-base font-bold">{s.label}</p>
               </motion.div>
             ))}
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mb-10">
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+            <p className="text-2xl font-bold mb-2">Color Palette</p>
+
+            <p className="text-lg leading-relaxed text-white/80 mb-8">
+            The palette combines soft neutrals and warm dessert-inspired tones — cream and cocoa for refinement,
+            blush pink and pastel accents for warmth, and a golden highlight for premium contrast.
+            </p>
+
+  <div className="flex flex-wrap justify-center gap-6">
+    {[
+      { hex: "#ffffff", label: "#ffffff" },
+      { hex: "#5447E3", label: "#5447E3" },
+      { hex: "#000000", label: "#000000" },
+      
+    ].map((c) => (
+      <div key={c.hex} className="flex flex-col items-center gap-2">
+        <div
+          className="w-32 h-32
+           rounded-full border border-black/20 shadow-lg"
+          style={{ background: c.hex }}
+        />
+
+        <span className="text-sm font-mono text-white bg-white/10 px-3 py-1 rounded-full">
+          {c.label}
+        </span>
+      </div>
+    ))}
+  </div>
+  </div>
+        </FadeUp>
+
+        {/* Typography */}
+        <FadeUp className="mb-10">
+          <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
+          <p className="text-2xl font-bold mb-2">Typography</p>
+
+          <p className="text-lg leading-relaxed text-white/80 mb-6">
+            Poppins provides clean readability for the text.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
+              <p className="text-sm text-white/50 tracking-widest mb-2">FONT</p>
+              <p className="text-3xl font-poppins">Poppins</p>
+              <p className="text-xl mt-2 font-poppins">i-Laundroid</p>
+            </div>
+          </div>
           </div>
         </FadeUp>
 
@@ -486,11 +596,11 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
     className="
       bg-[rgba(118,182,255,0.18)]
       backdrop-blur-xl
-      rounded-[80px]
-      px-10 md:px-16
-      py-5
-      flex items-center
-      gap-8 md:gap-12
+      rounded-[40px]
+      px-4 md:px-16
+      py-3 md:py-5
+      flex flex-wrap justify-center items-center
+      gap-3 md:gap-12
       pointer-events-auto
       border border-white/20
       shadow-[0_8px_32px_rgba(118,182,255,0.15)]
@@ -500,7 +610,7 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
       <button
         key={link.id}
         onClick={() => scrollTo(link.id)}
-        className={`text-base md:text-lg whitespace-nowrap transition-all duration-300 hover:text-blue-200 ${
+        className={`text-xs md:text-lg whitespace-nowrap transition-all duration-300 hover:text-blue-200 ${
           activeSection === link.id
             ? "font-bold text-white"
             : "font-medium text-white/70"
@@ -550,7 +660,7 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
   initial={{ opacity: 0, scale: 0.85 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-  className="relative w-80 md:w-[450px] xl:w-[550px] flex-shrink-0"
+  className="relative w-full max-w-[320px] md:w-[450px] xl:w-[550px] flex-shrink-0"
 >
   {/* glow behind image */}
   <div className="absolute inset-0 bg-blue-400/20 blur-[100px] rounded-full" />
