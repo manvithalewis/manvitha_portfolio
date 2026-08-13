@@ -1,68 +1,15 @@
-import { useState, useEffect, useRef, ReactNode, FormEvent } from "react";
+import { useState, useEffect, ReactNode, FormEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Linkedin, Github, Mail, ArrowUp, CheckCircle, ChevronDown, ArrowLeft, ExternalLink } from "lucide-react";
-
+import { Linkedin, Github, Mail, ArrowUp, CheckCircle, ChevronDown, ExternalLink } from "lucide-react";
+import KnotlyPage from "./components/KnotlyPage";
+import BrandingPage from "./components/BrandingPage";
+import LaundryPage from "./components/LaundryPage";
+import { FadeUp, GlassBtn } from "./components/shared";
 // ════════════════════════════════════════════
 //  Shared utilities
 // ════════════════════════════════════════════
 
-type Page = "home" | "branding" | "laundry";
-
-function FadeUp({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.1 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={visible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-// Glassmorphism pill button
-function GlassBtn({
-  onClick,
-  children,
-  className = "",
-  type = "button",
-  accent = false,
-}: {
-  onClick?: () => void;
-  children: ReactNode;
-  className?: string;
-  type?: "button" | "submit";
-  accent?: boolean;
-}) {
-  return (
-    <motion.button
-      type={type}
-      onClick={onClick}
-      whileHover={{ scale: 1.05, y: -2 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.18 }}
-      className={`relative overflow-hidden border border-white/40 rounded-[34px] px-8 py-3 text-lg text-white
-        backdrop-blur-md transition-colors duration-200 font-poppins cursor-pointer
-        ${accent
-          ? "bg-[rgba(7,106,218,0.3)] hover:bg-[rgba(7,106,218,0.5)] shadow-[0_0_24px_rgba(7,106,218,0.3)]"
-          : "bg-white/10 hover:bg-white/20 shadow-[0_4px_24px_rgba(255,255,255,0.06)]"}
-        ${className}`}
-    >
-      <span className="relative z-10">{children}</span>
-    </motion.button>
-  );
-}
+type Page = "home" | "branding" | "laundry" | "knotly";
 
 // Section heading
 function SectionHeading({ children }: { children: ReactNode }) {
@@ -175,905 +122,6 @@ const EDUCATION = [
   },
 ];
 
-const LAUNDRY_SCREENS = [
-  { img: "/images/laundry/hosteller.png", label: "Hosteller Module" },
-  { img: "/images/laundry/outsider.png", label: "Outsider Module" },
-  { img: "/images/laundry/admin.png", label: "Admin Module" },
-  { img: "/images/laundry/superadmin.png", label: "Super Admin Module" },
-];
-
-
-
-// ════════════════════════════════════════════
-//  Page: Branding detail
-// ════════════════════════════════════════════
-function BrandingPage({ onBack }: { onBack: () => void }) {
-useEffect(() => { window.scrollTo(0, 0); }, []);
-
-return (
-    <div
-    className="min-h-screen font-poppins text-white"
-style={{ background: "linear-gradient(to bottom,#000,#001833)" }}
->
-{/* Back nav */} <div className="fixed top-4 left-6 z-50"> <GlassBtn onClick={onBack}> <span className="flex items-center gap-2"> <ArrowLeft className="w-5 h-5" /> Back </span> </GlassBtn> </div>
-
-```
-  <div className="max-w-5xl mx-auto px-6 pt-28 pb-24">
-
-    {/* Hero */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <h1 className="font-poppins text-5xl md:text-7xl text-center mb-3">
-        Sugar & Lace
-      </h1>
-
-      <p className="font-[Satisfy,cursive] text-xl md:text-2xl text-center text-[#ff9d9d] mb-6 italic">
-        Baking Sweet Moments, One Slice at a Time.
-      </p>
-
-      <p className="text-center text-white/60 tracking-widest text-sm mb-12">
-        HOME BAKERY BRANDING PROJECT
-      </p>
-    </motion.div>
-
-
-    {/* Problem Statement */}
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-        <p className="text-2xl font-bold mb-4">
-          Problem Statement
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85">
-          Many small home bakeries rely on social media to showcase their
-          products but often lack a dedicated digital presence that
-          reflects their brand identity and makes it easy for customers
-          to explore offerings or get in touch. The challenge was to
-          create a clean, visually appealing landing page that
-          communicates the bakery's handcrafted quality while providing
-          a simple and intuitive user experience.
-        </p>
-      </div>
-    </FadeUp>
-
-
-    {/* Context and Constraints */}
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-        <p className="text-2xl font-bold mb-4">
-          Context and Constraints
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85 mb-5">
-          Sugar & Lace is a boutique home bakery creating elegant
-          handcrafted desserts for life's sweetest celebrations. Every
-          cake, cupcake, and pastry is thoughtfully made with artistry,
-          warmth, and attention to detail.
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85">
-          This was my first independently executed UI/UX project. The
-          challenge was to understand the needs of a small home bakery
-          business and translate them into a meaningful digital
-          experience while keeping the interface simple enough for a
-          small business owner to manage and maintain.
-        </p>
-      </div>
-    </FadeUp>
-
-
-    {/* Target Audience */}
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          Target Audience
-        </p>
-
-        <ul className="list-disc pl-6 space-y-3 text-lg text-white/80">
-          <li>
-            Young adults seeking aesthetic and customized cakes
-          </li>
-
-          <li>
-            Couples celebrating special occasions like weddings &
-            anniversaries
-          </li>
-
-          <li>
-            Families planning birthdays and memorable gatherings
-          </li>
-
-          <li>
-            Event planners looking for visually appealing dessert
-            solutions
-          </li>
-
-          <li>
-            Corporate clients for celebrations, gifting, and events
-          </li>
-        </ul>
-
-      </div>
-    </FadeUp>
-
-
-    {/* Key Design Decisions */}
-
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-8">
-          Key Design Decisions
-        </p>
-
-
-        {/* Logo Design */}
-        <div className="mb-10">
-
-          <p className="text-xl font-semibold mb-3">
-            Logo & Identity
-          </p>
-
-          <p className="text-lg leading-relaxed text-white/80 mb-8">
-            The Sugar & Lace logo reflects the brand's elegant homemade
-            identity through soft handwritten typography and a minimalist
-            whisk illustration. The flowing curves and warm cocoa tones
-            create a cozy yet premium visual experience while keeping the
-            identity simple and versatile.
-          </p>
-
-          <div className="grid grid-cols-2 gap-6">
-
-            {[
-              "/images/branding/logo_dark.png",
-              "/images/branding/logo_light.png",
-            ].map((src, i) => (
-
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.03 }}
-                className="rounded-2xl overflow-hidden"
-              >
-                <img
-                  src={src}
-                  alt={`Sugar & Lace logo variant ${i + 1}`}
-                  className="w-full object-contain p-6"
-                />
-              </motion.div>
-
-            ))}
-
-          </div>
-        </div>
-
-
-        {/* Color Palette */}
-        <div className="mb-10">
-
-          <p className="text-xl font-semibold mb-3">
-            Color Palette
-          </p>
-
-          <p className="text-lg leading-relaxed text-white/80 mb-8">
-            The palette combines soft neutrals and warm dessert-inspired
-            tones to create a welcoming and premium visual identity.
-            Cream and cocoa establish refinement, blush pink adds warmth,
-            and a golden accent provides contrast and visual emphasis.
-          </p>
-
-          <div className="flex justify-between items-center flex-wrap w-full gap-6">
-
-            {[
-              { hex: "#FFF8F2", label: "#FFF8F2" },
-              { hex: "#4A1D1F", label: "#4A1D1F" },
-              { hex: "#FFFCFC", label: "#FFFCFC" },
-              { hex: "#FFDADA", label: "#FFDADA" },
-              { hex: "#FCEA2B", label: "#FCEA2B" },
-            ].map((c) => (
-
-              <div
-                key={c.hex}
-                className="flex flex-col items-center gap-2"
-              >
-
-                <div
-                  className="w-32 h-32 rounded-full border border-black/20 shadow-lg"
-                  style={{ background: c.hex }}
-                />
-
-                <span className="text-sm font-mono text-white bg-white/10 px-3 py-1 rounded-full">
-                  {c.label}
-                </span>
-
-              </div>
-
-            ))}
-
-          </div>
-
-        </div>
-
-
-        {/* Typography */}
-        <div>
-
-          <p className="text-xl font-semibold mb-3">
-            Typography
-          </p>
-
-          <p className="text-lg leading-relaxed text-white/80 mb-6">
-            Satisfy brings a soft handwritten feel for headings,
-            reinforcing the handcrafted personality of the brand, while
-            Poppins provides clean readability for body content and
-            navigation.
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
-
-              <p className="text-sm text-white/50 tracking-widest mb-2">
-                HEADING FONT
-              </p>
-
-              <p
-                className="text-3xl"
-                style={{ fontFamily: "'Satisfy', cursive" }}
-              >
-                Satisfy
-              </p>
-
-              <p
-                className="text-xl mt-2"
-                style={{ fontFamily: "'Satisfy', cursive" }}
-              >
-                Sugar & Lace
-              </p>
-
-            </div>
-
-
-            <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
-
-              <p className="text-sm text-white/50 tracking-widest mb-2">
-                BODY FONT
-              </p>
-
-              <p className="text-3xl font-poppins">
-                Poppins
-              </p>
-
-              <p className="text-xl mt-2 font-poppins">
-                Sugar & Lace
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </FadeUp>
-
-
-    {/* Key Screens */}
-    <FadeUp className="mb-10">
-
-      <p className="text-2xl font-bold mb-2">
-        Key Screens
-      </p>
-
-      <p className="text-lg leading-relaxed text-white/80 mb-6">
-        Core screens designed to showcase the brand experience and
-        support the customer's journey from discovering the bakery
-        to getting in touch.
-      </p>
-
-
-      <div className="grid md:grid-cols-3 gap-6">
-
-        {/* Home Screen */}
-        <motion.div
-          whileHover={{ y: -5 }}
-          className="rounded-2xl overflow-hidden border border-white/10 bg-white/5"
-        >
-
-          <img
-            src="/images/branding/home.png"
-            alt="Sugar & Lace Home Screen"
-            className="w-full object-cover"
-          />
-
-          <div className="p-4">
-
-            <h3 className="font-medium text-lg mb-2">
-              Home Screen
-            </h3>
-
-            <p className="text-lg leading-relaxed text-white/80">
-              Introduces the brand with a clean layout, featured
-              collections, and clear visual hierarchy, allowing visitors
-              to quickly understand the bakery and its offerings.
-            </p>
-
-          </div>
-
-        </motion.div>
-
-
-        {/* Categories Screen */}
-        <motion.div
-          whileHover={{ y: -5 }}
-          className="rounded-2xl overflow-hidden border border-white/10 bg-white/5"
-        >
-
-          <img
-            src="/images/branding/categories.png"
-            alt="Sugar & Lace Categories Screen"
-            className="w-full object-cover"
-          />
-
-          <div className="p-4">
-
-            <h3 className="font-medium text-lg mb-2">
-              Categories Screen
-            </h3>
-
-            <p className="text-lg leading-relaxed text-white/80">
-              Enables users to browse products through organized
-              categories and intuitive navigation, making product
-              discovery simple and efficient.
-            </p>
-
-          </div>
-
-        </motion.div>
-
-
-        {/* Contact Form Screen */}
-        <motion.div
-          whileHover={{ y: -5 }}
-          className="rounded-2xl overflow-hidden border border-white/10 bg-white/5"
-        >
-
-          <img
-            src="/images/branding/contact form.png"
-            alt="Sugar & Lace Contact Form Screen"
-            className="w-full object-cover"
-          />
-
-          <div className="p-4">
-
-            <h3 className="font-medium text-lg mb-2">
-              Contact Form Screen
-            </h3>
-
-            <p className="text-lg leading-relaxed text-white/80">
-              Provides a simple and accessible way for customers to
-              inquire about custom orders and connect with the bakery.
-            </p>
-
-          </div>
-
-        </motion.div>
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Design Challenges */}
-    <FadeUp className="mb-10">
-
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          Design Challenges
-        </p>
-
-        <ul className="list-disc pl-6 space-y-3 text-lg text-white/85">
-
-          <li>
-            Understanding the needs of a small home bakery business
-            and translating them into a meaningful digital experience.
-          </li>
-
-          <li>
-            Balancing aesthetic appeal with usability while ensuring
-            the interface remained clean and easy to navigate.
-          </li>
-
-          <li>
-            Creating a visual identity that feels elegant, handcrafted,
-            and consistent across the landing page.
-          </li>
-
-          <li>
-            Designing a layout that is simple enough for a small
-            business to maintain while still delivering a premium
-            customer experience.
-          </li>
-
-        </ul>
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Outcome */}
-    <FadeUp className="mb-10">
-
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          Outcome
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85">
-          The project resulted in a cohesive brand identity and a
-          responsive landing page that reflects Sugar & Lace's
-          handcrafted values. By combining thoughtful branding, a warm
-          visual language, and an intuitive layout, the design creates
-          an inviting first impression while making it easy for
-          customers to explore the bakery and get in touch.
-        </p>
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Back to Portfolio */}
-    <div className="flex justify-center">
-
-      <GlassBtn onClick={onBack}>
-
-        <span className="flex items-center gap-2">
-          <ArrowLeft className="w-5 h-5" />
-          Back to Portfolio
-        </span>
-
-      </GlassBtn>
-
-    </div>
-
-  </div>
-</div>
-
-
-);
-}
-
-
-// ════════════════════════════════════════════
-//  Page: Laundry Management System detail
-// ════════════════════════════════════════════
-function LaundryPage({ onBack }: { onBack: () => void }) {
-useEffect(() => { window.scrollTo(0, 0); }, []);
-
-return (
-<div
-className="min-h-screen font-poppins text-white"
-style={{ background: "linear-gradient(to bottom,#000,#001833)" }}
->
-{/* Back nav */} <div className="fixed top-4 left-6 z-50"> <GlassBtn onClick={onBack}> <span className="flex items-center gap-2"> <ArrowLeft className="w-5 h-5" /> Back </span> </GlassBtn> </div>
-
-```
-  <div className="max-w-5xl mx-auto px-6 pt-28 pb-24">
-
-    {/* Hero */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <h1 className="font-itim text-4xl md:text-6xl text-center mb-3 leading-tight">
-        i-Laundroid: A Laundry Management System
-      </h1>
-
-      <p className="text-xl text-center text-white/60 tracking-wider mb-4">
-        Role: UI/UX Designer
-      </p>
-
-      <p className="text-center text-white/40 tracking-widest text-sm mb-16">
-        WEB APPLICATION
-      </p>
-    </motion.div>
-
-
-    {/* Overview */}
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          Overview
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85">
-          i-Laundroid is a laundry management web application designed
-          to simplify and organize laundry operations across different
-          user roles. The system brings together essential workflows
-          such as order management, customer management, billing,
-          dashboards, and reporting into a structured digital experience.
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85 mt-5">
-          I designed the complete user interface with a focus on
-          consistency, clear information hierarchy, responsive layouts,
-          and efficient navigation across the different modules.
-        </p>
-
-      </div>
-    </FadeUp>
-
-
-    {/* Project Details & Contribution */}
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-6">
-          Project Details
-        </p>
-
-        <div className="mb-6">
-
-          <p className="text-sm text-white/50 tracking-widest mb-2">
-            PROJECT TYPE
-          </p>
-
-          <p className="text-lg font-semibold">
-            Web Application
-          </p>
-
-        </div>
-
-
-        <div>
-
-          <p className="text-sm text-white/50 tracking-widest mb-3">
-            MY CONTRIBUTION
-          </p>
-
-          <ul className="list-disc pl-6 space-y-2 text-lg text-white/85">
-
-            <li>
-              Designed high-fidelity UI screens across the application
-            </li>
-
-            <li>
-              Created consistent layouts, components, and navigation
-              patterns
-            </li>
-
-            <li>
-              Designed responsive interfaces for different screen sizes
-            </li>
-
-            <li>
-              Collaborated with developers and stakeholders throughout
-              the design process
-            </li>
-
-            <li>
-              Refined the designs based on feedback and implementation
-              requirements
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-    </FadeUp>
-
-
-    {/* User Roles & Workflows */}
-    <FadeUp className="mb-10">
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          User Roles & Workflows
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/80 mb-8">
-          The system was designed around multiple user roles, each with
-          dedicated workflows and permissions. The interface adapts the
-          available information and actions according to the needs of
-          each user.
-        </p>
-
-
-        <div className="grid md:grid-cols-3 gap-6">
-
-          {/* Hosteller */}
-          <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
-
-            <p className="text-xl font-semibold mb-3">
-              Hosteller Module
-            </p>
-
-            <p className="text-base leading-relaxed text-white/70">
-              Designed interfaces to support hostellers throughout their
-              laundry-related activities, providing access to relevant
-              information and actions within their workflow.
-            </p>
-
-          </div>
-
-
-          {/* Outsider / Admin */}
-          <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
-
-            <p className="text-xl font-semibold mb-3">
-              Outsider / Admin Module
-            </p>
-
-            <p className="text-base leading-relaxed text-white/70">
-              Designed workflows and interfaces for managing outsider
-              laundry activities while keeping operational information
-              organized and accessible.
-            </p>
-
-          </div>
-
-
-          {/* Super Admin */}
-          <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
-
-            <p className="text-xl font-semibold mb-3">
-              Super Admin Module
-            </p>
-
-            <p className="text-base leading-relaxed text-white/70">
-              Designed administrative interfaces that provide broader
-              control over the system, including management and monitoring
-              of different operational areas.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    </FadeUp>
-
-
-    {/* Key Screens */}
-    <FadeUp className="mb-10">
-
-      <p className="text-2xl font-bold mb-2">
-        Key Screens
-      </p>
-
-      <p className="text-lg text-white/60 mb-8">
-        The application consists of multiple modules designed around
-        the specific needs of each user role, including dashboards,
-        order management, customer management, billing, reporting,
-        and role-specific management screens.
-      </p>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-        {LAUNDRY_SCREENS.map((s, i) => (
-
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.04, y: -4 }}
-            transition={{ duration: 0.2 }}
-            className="text-center"
-          >
-
-            <img
-              src={s.img}
-              alt={s.label}
-              className="w-full rounded-xl mb-3 shadow-lg"
-            />
-
-            <p className="text-base font-bold">
-              {s.label}
-            </p>
-
-          </motion.div>
-
-        ))}
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Visual System */}
-    <FadeUp className="mb-10">
-
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-8">
-          Visual System
-        </p>
-
-
-        {/* Color Palette */}
-        <div className="mb-10">
-
-          <p className="text-xl font-semibold mb-3">
-            Color Palette
-          </p>
-
-          <p className="text-lg leading-relaxed text-white/80 mb-8">
-            The visual system uses a minimal and professional palette
-            to keep the interface clean while providing strong visual
-            emphasis for important actions and information.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-6">
-
-            {[
-              { hex: "#FFFFFF", label: "#FFFFFF" },
-              { hex: "#5447E3", label: "#5447E3" },
-              { hex: "#000000", label: "#000000" },
-            ].map((c) => (
-
-              <div
-                key={c.hex}
-                className="flex flex-col items-center gap-2"
-              >
-
-                <div
-                  className="w-32 h-32 rounded-full border border-black/20 shadow-lg"
-                  style={{ background: c.hex }}
-                />
-
-                <span className="text-sm font-mono text-white bg-white/10 px-3 py-1 rounded-full">
-                  {c.label}
-                </span>
-
-              </div>
-
-            ))}
-
-          </div>
-
-        </div>
-
-
-        {/* Typography */}
-        <div>
-
-          <p className="text-xl font-semibold mb-3">
-            Typography
-          </p>
-
-          <p className="text-lg leading-relaxed text-white/80 mb-6">
-            Poppins was used throughout the application to provide
-            clean readability and maintain a consistent visual language
-            across dashboards, tables, forms, navigation, and other
-            interface elements.
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div className="border border-white/20 rounded-2xl p-6 bg-white/5">
-
-              <p className="text-sm text-white/50 tracking-widest mb-2">
-                FONT
-              </p>
-
-              <p className="text-3xl font-poppins">
-                Poppins
-              </p>
-
-              <p className="text-xl mt-2 font-poppins">
-                i-Laundroid
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Design Challenges */}
-    <FadeUp className="mb-10">
-
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          Design Challenges
-        </p>
-
-        <ul className="list-disc pl-6 space-y-3 text-lg text-white/85">
-
-          <li>
-            Designing interfaces for multiple user roles while
-            maintaining a consistent visual experience throughout
-            the application.
-          </li>
-
-          <li>
-            Organizing operational data in a clear and
-            easy-to-understand layout so users can quickly find
-            relevant information.
-          </li>
-
-          <li>
-            Creating navigation that supports quick access to
-            frequently used features without making the application
-            feel overwhelming.
-          </li>
-
-        </ul>
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Outcome */}
-    <FadeUp className="mb-10">
-
-      <div className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm">
-
-        <p className="text-2xl font-bold mb-4">
-          Outcome
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85">
-          Delivered a complete high-fidelity UI design for a multi-module
-          laundry management system, creating a consistent and
-          user-friendly experience across hostel, outsider, admin, and
-          super admin workflows.
-        </p>
-
-        <p className="text-lg leading-relaxed text-white/85 mt-5">
-          The project strengthened my experience in designing complex
-          web applications where different users interact with the same
-          system through different workflows and permissions.
-        </p>
-
-      </div>
-
-    </FadeUp>
-
-
-    {/* Figma Button */}
-    <div className="flex justify-center mt-12">
-
-      <GlassBtn
-        onClick={() =>
-          window.open(
-            "https://www.figma.com/design/tWtK5PzGIh1WYEpuhRAHHV/Laundry-management-system?node-id=0-1&t=pyAOYulAD3AWuKzo-1",
-            "_blank"
-          )
-        }
-      >
-
-        <span className="flex items-center gap-2">
-          <ExternalLink className="w-5 h-5" />
-          See full design on Figma
-        </span>
-
-      </GlassBtn>
-
-    </div>
-
-  </div>
-</div>
-
-
-);
-}
-
 // ════════════════════════════════════════════
 //  Page: Main portfolio
 // ════════════════════════════════════════════
@@ -1146,7 +194,7 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
 
       {/* ── Hero ── */}
       <section id="home" className="min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12">
-        <div className="max-w-6xl w-full flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-8">
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
@@ -1208,7 +256,7 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
 
       {/* ── About ── */}
       <section id="about" className="py-20 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <SectionHeading>About Me</SectionHeading>
 
           {/* Short bio */}
@@ -1271,7 +319,7 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
 
       {/* ── Experience ── */}
       <section id="experience" className="py-20 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <SectionHeading>Experience</SectionHeading>
           <FadeUp delay={0.1}>
             <motion.div
@@ -1300,7 +348,7 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
 
       {/* ── Skills ── */}
       <section id="skills" className="py-20 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <SectionHeading>My Skills</SectionHeading>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
             {SKILLS.map((skill, i) => (
@@ -1347,85 +395,231 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
       </section>
 
       {/* ── Projects ── */}
-      <section id="projects" className="py-20 px-6 md:px-12">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading>Projects</SectionHeading>
+      {/* ── Projects ── */}
+<section id="projects" className="py-20 px-6 md:px-12">
+  <div className="max-w-7xl mx-auto">
+    <SectionHeading>Projects</SectionHeading>
 
-          {/* Sugar & Lace */}
-          <FadeUp delay={0.1} className="mb-10">
-            <motion.div
-              whileHover={{ borderColor: "rgba(147,197,253,0.4)" }}
-              className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm flex flex-col md:flex-row gap-10 items-start"
-            >
-              <motion.div whileHover={{ scale: 1.04 }} transition={{ duration: 0.25 }} className="w-full md:w-72 flex-shrink-0">
-                <img
-                  src="/images/projects/sugar_and_lace.png"
-                  alt="Sugar & Lace"
-                  className="w-full rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-105 transition"
-                />
-              </motion.div>
-              <div className="flex-1">
-                <h3 className="font-itim text-3xl md:text-4xl mb-5 leading-snug">Sugar & Lace — Home Bakery Landing Page</h3>
-                <p className="text-base md:text-lg leading-relaxed text-white/80 mb-8">
-                  Designed a user-friendly bakery landing page in Figma, focusing on a clean layout, strong visual branding, and smooth user experience. The design emphasizes clear product categorization, custom cake ordering, and intuitive interaction.
-                </p>
-                <div className="flex flex-wrap gap-5">
-                  <GlassBtn
-                    onClick={() =>
-                      window.open(
-                        "https://www.figma.com/proto/n1P6akXhNwonoH0llJoYpP/sugar-and-lace-bakery-website?node-id=42-180&p=f&viewport=514%2C261%2C0.04&t=GXLQLlKRqhGB0x3m-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=42%3A180&page-id=0%3A1&show-proto-sidebar=1",
-                        "_blank"
-                      )
-                    }
-                  > Prototype </GlassBtn>
-                  <GlassBtn onClick={() => navigate("branding")}>
-                    <span className="flex items-center gap-2">More Details <ExternalLink className="w-4 h-4" /></span>
-                  </GlassBtn>
-                </div>
-              </div>
-            </motion.div>
-          </FadeUp>
+    {/* Knotly */}
+    <FadeUp delay={0.1} className="mb-10">
+      <motion.div
+        whileHover={{ borderColor: "rgba(147,197,253,0.4)" }}
+        className="relative border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm flex flex-col md:flex-row gap-10 items-start"
+      >
 
-          {/* i-laundroid */}
-          <FadeUp delay={0.1} className="mb-10">
-            <motion.div
-              whileHover={{ borderColor: "rgba(147,197,253,0.4)" }}
-              className="border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm flex flex-col md:flex-row gap-10 items-start"
-            >
-              <motion.div whileHover={{ scale: 1.04 }} transition={{ duration: 0.25 }} className="w-full md:w-72 flex-shrink-0">
-                <img
-                  src="/images/projects/laundry_system.png"
-                  alt="i-laundroid"
-                  className="w-full rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-105 transition"
-                />
-              </motion.div>
-              <div className="flex-1">
-                <h3 className="font-itim text-3xl md:text-4xl mb-5 leading-snug">i-Laundroid: A Laundry Management System</h3>
-                <p className="text-base md:text-lg leading-relaxed text-white/80 mb-8">
-                  Designed the complete user interface for a laundry management web application, including dashboard, order management, customer management, billing, and reporting modules.
-                </p>
-                <div className="flex flex-wrap gap-5">
-                  <GlassBtn
-                    onClick={() =>
-                      window.open(
-                        "https://www.figma.com/design/tWtK5PzGIh1WYEpuhRAHHV/Laundry-management-system?node-id=0-1&t=pyAOYulAD3AWuKzo-1",
-                        "_blank"
-                      )
-                    }
-                  >Design</GlassBtn>
-                  <GlassBtn onClick={() => navigate("laundry")}>
-                    <span className="flex items-center gap-2">More Details <ExternalLink className="w-4 h-4" /></span>
-                  </GlassBtn>
-                </div>
-              </div>
-            </motion.div>
-          </FadeUp>
+        {/* Timeline */}
+        <span className="absolute top-7 right-8 md:top-10 md:right-12 text-lg md:text-xl font-medium text-white/60">
+          2026
+        </span>
+
+        {/* Project Image */}
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          transition={{ duration: 0.25 }}
+          className="w-full md:w-72 flex-shrink-0"
+        >
+          <img
+            src="/images/knotly/main_img.png"
+            alt="Knotly - Crochet Companion App"
+            className="w-full rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-105 transition"
+          />
+        </motion.div>
+
+        {/* Project Content */}
+        <div className="flex-1">
+
+          {/* Status */}
+          <div className="flex items-center gap-2 mb-4">
+
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E9A08C]/30 bg-[#E9A08C]/10 text-[#E9A08C] text-sm font-medium">
+
+              <span className="w-2 h-2 rounded-full bg-[#E9A08C]" />
+
+              ONGOING
+
+            </span>
+
           </div>
-      </section>
+
+          {/* Title */}
+          <h3 className="font-itim text-3xl md:text-4xl mb-5 leading-snug">
+            Knotly — A Crochet Companion App
+          </h3>
+
+          {/* Description */}
+          <p className="text-base md:text-lg leading-relaxed text-white/80 mb-8">
+            A crochet companion app designed to help crocheters save patterns,
+            understand instructions, track ongoing projects, and organize the
+            things they want to create in one place.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-wrap gap-5">
+
+            <GlassBtn onClick={() => navigate("knotly")}>
+              <span className="flex items-center gap-2">
+                More Details
+                <ExternalLink className="w-4 h-4" />
+              </span>
+            </GlassBtn>
+
+          </div>
+
+        </div>
+
+      </motion.div>
+    </FadeUp>
+
+    {/* i-laundroid */}
+    <FadeUp delay={0.1} className="mb-10">
+      <motion.div
+        whileHover={{ borderColor: "rgba(147,197,253,0.4)" }}
+        className="relative border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm flex flex-col md:flex-row gap-10 items-start"
+      >
+
+        {/* Timeline */}
+        <span className="absolute top-7 right-8 md:top-10 md:right-12 text-lg md:text-xl font-medium text-white/60">
+          2026
+        </span>
+
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          transition={{ duration: 0.25 }}
+          className="w-full md:w-72 flex-shrink-0"
+        >
+          <img
+            src="/images/projects/laundry_system.png"
+            alt="i-laundroid"
+            className="w-full rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-105 transition"
+          />
+        </motion.div>
+
+        <div className="flex-1">
+
+          {/* Status */}
+          <div className="flex items-center gap-2 mb-4">
+
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#86EFAC]/30 bg-[#86EFAC]/10 text-[#86EFAC] text-sm font-medium">
+
+              <span className="w-2 h-2 rounded-full bg-[#86EFAC]" />
+
+              COMPLETED
+
+            </span>
+
+          </div>
+
+          <h3 className="font-itim text-3xl md:text-4xl mb-5 leading-snug">
+            i-Laundroid: A Laundry Management System
+          </h3>
+
+          <p className="text-base md:text-lg leading-relaxed text-white/80 mb-8">
+            Designed the complete user interface for a laundry management web application, including dashboard, order management, customer management, billing, and reporting modules.
+          </p>
+
+          <div className="flex flex-wrap gap-5">
+            <GlassBtn
+              onClick={() =>
+                window.open(
+                  "https://www.figma.com/design/tWtK5PzGIh1WYEpuhRAHHV/Laundry-management-system?node-id=0-1&t=pyAOYulAD3AWuKzo-1",
+                  "_blank"
+                )
+              }
+            >
+              Design
+            </GlassBtn>
+
+            <GlassBtn onClick={() => navigate("laundry")}>
+              <span className="flex items-center gap-2">
+                More Details
+                <ExternalLink className="w-4 h-4" />
+              </span>
+            </GlassBtn>
+          </div>
+
+        </div>
+
+      </motion.div>
+    </FadeUp>
+
+    {/* Sugar & Lace */}
+    <FadeUp delay={0.1} className="mb-10">
+      <motion.div
+        whileHover={{ borderColor: "rgba(147,197,253,0.4)" }}
+        className="relative border border-white/20 rounded-[30px] p-8 md:p-12 bg-white/5 backdrop-blur-sm flex flex-col md:flex-row gap-10 items-start"
+      >
+
+        {/* Timeline */}
+        <span className="absolute top-7 right-8 md:top-10 md:right-12 text-lg md:text-xl font-medium text-white/60">
+          2025
+        </span>
+
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          transition={{ duration: 0.25 }}
+          className="w-full md:w-72 flex-shrink-0"
+        >
+          <img
+            src="/images/projects/sugar_and_lace.png"
+            alt="Sugar & Lace"
+            className="w-full rounded-2xl shadow-2xl object-cover cursor-pointer hover:scale-105 transition"
+          />
+        </motion.div>
+
+        <div className="flex-1">
+
+          {/* Status */}
+          <div className="flex items-center gap-2 mb-4">
+
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#86EFAC]/30 bg-[#86EFAC]/10 text-[#86EFAC] text-sm font-medium">
+
+              <span className="w-2 h-2 rounded-full bg-[#86EFAC]" />
+
+              COMPLETED
+
+            </span>
+
+          </div>
+
+          <h3 className="font-itim text-3xl md:text-4xl mb-5 leading-snug">
+            Sugar & Lace — Home Bakery Landing Page
+          </h3>
+
+          <p className="text-base md:text-lg leading-relaxed text-white/80 mb-8">
+            Designed a user-friendly bakery landing page in Figma, focusing on a clean layout, strong visual branding, and smooth user experience. The design emphasizes clear product categorization, custom cake ordering, and intuitive interaction.
+          </p>
+
+          <div className="flex flex-wrap gap-5">
+            <GlassBtn
+              onClick={() =>
+                window.open(
+                  "https://www.figma.com/proto/n1P6akXhNwonoH0llJoYpP/sugar-and-lace-bakery-website?node-id=42-180&p=f&viewport=514%2C261%2C0.04&t=GXLQLlKRqhGB0x3m-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=42%3A180&page-id=0%3A1&show-proto-sidebar=1",
+                  "_blank"
+                )
+              }
+            >
+              Prototype
+            </GlassBtn>
+
+            <GlassBtn onClick={() => navigate("branding")}>
+              <span className="flex items-center gap-2">
+                More Details
+                <ExternalLink className="w-4 h-4" />
+              </span>
+            </GlassBtn>
+          </div>
+
+        </div>
+
+      </motion.div>
+    </FadeUp>
+
+  </div>
+</section>
 
       {/* ── Contact ── */}
       <section id="contact" className="py-20 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <SectionHeading>Contact Me</SectionHeading>
 
           <FadeUp delay={0.1}>
@@ -1559,6 +753,11 @@ export default function App() {
       {page === "laundry" && (
         <motion.div key="laundry" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
           <LaundryPage onBack={() => setPage("home")} />
+        </motion.div>
+      )}
+      {page === "knotly" && (
+        <motion.div key="knotly" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
+          <KnotlyPage onBack={() => setPage("home")} />
         </motion.div>
       )}
     </AnimatePresence>
