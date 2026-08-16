@@ -12,6 +12,59 @@ import { FadeUp, GlassBtn } from "./components/shared";
 type Page = "home" | "branding" | "laundry" | "knotly";
 
 // Section heading
+const HERO_ROLES = [
+  "UI/UX Designer",
+  "Product Designer",
+  "Frontend Developer",
+  "Creative Problem Solver",
+  "Visual Designer",
+];
+
+function TypingRoles() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">("typing");
+
+  useEffect(() => {
+    const currentRole = HERO_ROLES[roleIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (phase === "typing") {
+      if (text.length < currentRole.length) {
+        timeout = setTimeout(() => setText(currentRole.slice(0, text.length + 1)), 90);
+      } else {
+        timeout = setTimeout(() => setPhase("pausing"), 1400);
+      }
+    } else if (phase === "pausing") {
+      timeout = setTimeout(() => setPhase("deleting"), 900);
+    } else {
+      if (text.length > 0) {
+        timeout = setTimeout(() => setText(currentRole.slice(0, text.length - 1)), 45);
+      } else {
+        timeout = setTimeout(() => {
+          setRoleIndex((i) => (i + 1) % HERO_ROLES.length);
+          setPhase("typing");
+        }, 300);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, phase, roleIndex]);
+
+  return (
+    <span className="inline-block">
+      {text}
+      <motion.span
+        aria-hidden="true"
+        className="inline-block w-[0.06em] ml-1 align-middle bg-current"
+        style={{ height: "0.85em" }}
+        animate={{ opacity: [1, 1, 0, 0] }}
+        transition={{ duration: 1, repeat: Infinity, times: [0, 0.5, 0.5, 1], ease: "linear" }}
+      />
+    </span>
+  );
+}
+
 function SectionHeading({ children }: { children: ReactNode }) {
   return (
     <FadeUp className="mb-10">
@@ -211,13 +264,14 @@ function Portfolio({ navigate }: { navigate: (p: Page) => void }) {
               Welcome to my portfolio
             </motion.p>
             <h1 className="font-itim text-5xl sm:text-6xl md:text-7xl xl:text-[5.5rem] leading-tight mb-12">
-              {"Hello,\nI'm Manvitha Lewis,\n"}
+              <span className="block">Hello,</span>
+              <span className="block whitespace-nowrap">I'm Manvitha Lewis,</span>
               <motion.span
                 className="text-[#ff9d9d]"
                 animate={{ opacity: [0.85, 1, 0.85] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
-                a UI/UX Designer
+                a <TypingRoles />
               </motion.span>
             </h1>
             <div className="flex flex-wrap gap-5 justify-end">
