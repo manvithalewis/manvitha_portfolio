@@ -159,7 +159,7 @@ const EDUCATION = [
     school: "St Joseph Engineering College, Mangalore",
     degree: "Bachelor of Engineering — Computer Science & Engineering",
     detail: "2023 – 2027, in progress",
-    score: "8.73 CGPA",
+    score: "8.69 CGPA",
   },
   {
     school: "Viveka PU College, Kota, Udupi",
