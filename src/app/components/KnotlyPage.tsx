@@ -63,7 +63,7 @@ const KNOTLY_SCREENS = [
       "Introduces Knotly through its visual identity and creates a warm, handcrafted first impression for the user.",
   },
   {
-    img: "public/images/knotly/HOME.png",
+    img: "public/images/knotly/home.png",
     label: "Home Screen",
     description:
       "Acts as the user's starting point, providing quick access to an ongoing project, wishlist, and saved projects.",
